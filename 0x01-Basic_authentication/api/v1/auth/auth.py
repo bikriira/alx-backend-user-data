@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""template for all authentication system
+"""
 from typing import List, TypeVar
 from flask import request
 
