@@ -28,4 +28,9 @@ def stats() -> str:
 
 @app_views.route("/unauthorized")
 def unauthorised() -> str:
+    """ GET /api/v1/unauthorized
+
+    Raise a 401 error using abort(Custom Error Pages)
+    (FYI: just triger the 401 not authorised just for tesing purposes)
+    """
     abort(401)
