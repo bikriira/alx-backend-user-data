@@ -34,3 +34,14 @@ def unauthorised() -> str:
     (FYI: just triger the 401 not authorised just for tesing purposes)
     """
     abort(401)
+
+
+@app_views.route("/forbidden/", strict_slashes=False)
+def unauthorised() -> str:
+    """ GET /api/v1/forbidden
+
+    Raise a 403 error using abort(Custom Error Pages)
+        FYI: just triger the 403 for a request where the user is authenticate,
+        but not allowed to access to a resource
+    """
+    abort(403)
