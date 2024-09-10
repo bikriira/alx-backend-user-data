@@ -51,3 +51,12 @@ class Auth:
             _type_: _description_
         """
         return None
+
+
+class BasicAuth(Auth):
+    """_summary_
+
+    Args:
+        Auth (_type_): _description_
+    """
+    pass
