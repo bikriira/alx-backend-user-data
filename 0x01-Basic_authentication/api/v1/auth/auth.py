@@ -4,8 +4,11 @@ from flask import request
 
 
 class Auth:
+    """ Manage the API authentication
+    """
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Manage the API authentication
+        """_summary_
 
         Args:
             path (str)
@@ -17,7 +20,20 @@ class Auth:
         return False
 
     def authorization_header(self, request=None) -> str:
+        """_summary_
+
+        Args:
+            request (_type_, optional): _description_. Defaults to None.
+
+        Returns:
+            str: _description_
+        """
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
         return None
