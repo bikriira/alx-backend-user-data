@@ -5,64 +5,72 @@ from base64 import b64decode
 
 
 class BasicAuth(Auth):
-    """_summary_
+    """Basic Authentication class"""
 
-    Args:
-        Auth (_type_): _description_
-    """
-
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
-        """_summary_
+    def extract_base64_authorization_header(
+        self,
+        authorization_header: str
+    ) -> str:
+        """
+        Extracts the Base64 part of the Authorization header for Basic Auth.
 
         Args:
-            authorization_header (str): _description_
+            authorization_header (str): The Authorization header value
 
         Returns:
-            str: _description_
+            str: The Base64 part of the Authorization header
+            None: If the header is invalid
         """
-        if authorization_header is None:
-            return None
-        if type(authorization_header) is not str:
+        if not authorization_header or not isinstance(
+            authorization_header, str
+        ):
             return None
         if not authorization_header.startswith("Basic "):
             return None
         else:
             return authorization_header[6:]
 
-    def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:
-        """_summary_
+    def decode_base64_authorization_header(
+        self,
+        base64_authorization_header: str
+    ) -> str:
+        """
+        Decodes the Base64 Authorization header.
 
         Args:
-            base64_authorization_header (str): _description_
+            base64_authorization_header (str): The Base64 Authorization header
 
         Returns:
-            str: _description_
+            str: The decoded value as UTF8 string
+            None: If it's not a valid Base64 string
         """
-        if base64_authorization_header is None:
+        if not base64_authorization_header or not isinstance(
+            base64_authorization_header, str
+        ):
             return None
-        if type(base64_authorization_header) is not str:
-            return None
-
         try:
             return b64decode(base64_authorization_header).decode("utf-8")
-        except:
+        except Exception:
             return None
 
-    def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):
-        """_summary_
+    def extract_user_credentials(
+        self,
+        decoded_base64_authorization_header: str
+    ) -> (str, str):
+        """
+        Extracts user credentials from the decoded Base64 Authorization header.
 
         Args:
-            self (_type_): _description_
-            str (_type_): _description_
+            decoded_base64_authorization_header (str): Decoded header
 
         Returns:
-            _type_: _description_
+            tuple: A tuple containing the user email and password
+            (None, None): If the decoded_base64_authorization_header is invalid
         """
-        if decoded_base64_authorization_header is None:
+        if not decoded_base64_authorization_header or not isinstance(
+            decoded_base64_authorization_header, str
+        ):
             return (None, None)
-        if type(decoded_base64_authorization_header) is not str:
+        if ":" not in decoded_base64_authorization_header:
             return (None, None)
-        if not ":" in decoded_base64_authorization_header:
-            return (None, None)
-        
-        return tuple(decoded_base64_authorization_header.split(":"))
+        return tuple(decoded_base64_authorization_header.split(":", 1))
