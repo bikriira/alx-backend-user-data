@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""template for all authentication system
+"""Implementation of auth authentication system
 """
 from typing import List, TypeVar
 from flask import request
@@ -51,12 +51,3 @@ class Auth:
             _type_: _description_
         """
         return None
-
-
-class BasicAuth(Auth):
-    """_summary_
-
-    Args:
-        Auth (_type_): _description_
-    """
-    pass
