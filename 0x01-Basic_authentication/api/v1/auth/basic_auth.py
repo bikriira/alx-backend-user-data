@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """ Implementation of basic_auth authentication system """
+from typing import TypeVar
 from .auth import Auth
 from base64 import b64decode
 
@@ -74,3 +75,14 @@ class BasicAuth(Auth):
         if ":" not in decoded_base64_authorization_header:
             return (None, None)
         return tuple(decoded_base64_authorization_header.split(":", 1))
+
+    def user_object_from_credentials(
+        self, user_email: str, user_pwd: str
+    ) -> TypeVar('User'):
+        """_summary_
+
+        Args:
+            self (_type_): _description_
+        """
+        if not isinstance(user_email, str) or not isinstance(user_pwd, str):
+            return (None, None)
