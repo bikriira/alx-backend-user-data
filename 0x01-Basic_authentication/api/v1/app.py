@@ -27,9 +27,6 @@ if auth_type == "basic_auth":
 def before_request():
     """Make sure that all request in the whole blueblint are vallidated
     """
-    if auth is None:
-        pass
-
     excluded_paths = [
         '/api/v1/status/',
         '/api/v1/unauthorized/',
@@ -40,6 +37,7 @@ def before_request():
             abort(401)
         if auth.current_user(request) is None:
             abort(403)
+    
 
 
 @app.errorhandler(404)

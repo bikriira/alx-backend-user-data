@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """ Implementation of basic_auth authentication system """
+from pprint import pprint
 from typing import TypeVar
 from .auth import Auth
 from base64 import b64decode
@@ -79,6 +80,7 @@ class BasicAuth(Auth):
 
     def user_object_from_credentials(self, user_email: str, user_pwd: str) \
             -> TypeVar('User'):
+        print("email", user_email, "pas", user_pwd)
         """Retrieve a User object based on email and password.
 
         Args:
@@ -100,3 +102,22 @@ class BasicAuth(Auth):
         if not user.is_valid_password(user_pwd):
             return None
         return user
+
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Retrieve the current user based on the request's authorization header.
+
+        Args:
+            request: The incoming request object (optional).
+
+        Returns:
+            User: The User object if credentials are valid, otherwise None.
+        """
+        encoded_credentials = self.authorization_header(request)
+        parsed_credentials = self.extract_base64_authorization_header(encoded_credentials)
+        decoded_credentials = self.decode_base64_authorization_header(
+            parsed_credentials)
+        user_credentials = self.extract_user_credentials (decoded_credentials)
+        user_object = self.user_object_from_credentials(*user_credentials)
+
+        return user_object
