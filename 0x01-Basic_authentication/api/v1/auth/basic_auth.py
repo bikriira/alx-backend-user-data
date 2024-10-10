@@ -80,7 +80,6 @@ class BasicAuth(Auth):
 
     def user_object_from_credentials(self, user_email: str, user_pwd: str) \
             -> TypeVar('User'):
-        print("email", user_email, "pas", user_pwd)
         """Retrieve a User object based on email and password.
 
         Args:
