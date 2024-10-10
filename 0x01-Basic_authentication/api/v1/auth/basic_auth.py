@@ -106,11 +106,19 @@ class BasicAuth(Auth):
     def current_user(self, request=None) -> TypeVar('User'):
         """Retrieve the current user based on the request.
 
+        This method extracts the user's credentials from the request's 
+        authorization header, decodes them, and validates them against 
+        the stored user data. If the credentials are valid, the corresponding 
+        User object is returned. If the credentials are invalid or missing, 
+        None is returned.
+
         Args:
-            request: The incoming request object.
+            request: The incoming request object, which may contain the 
+                    Authorization header needed for authentication.
 
         Returns:
-            User: The User object if credentials are valid, otherwise None.
+            User: The User object associated with the provided credentials 
+                if they are valid; otherwise, returns None.
         """
         encoded_credentials = self.authorization_header(request)
         parsed_credentials = self.extract_base64_authorization_header(
@@ -119,5 +127,5 @@ class BasicAuth(Auth):
             parsed_credentials)
         user_credentials = self.extract_user_credentials(decoded_credentials)
         user_object = self.user_object_from_credentials(*user_credentials)
-        
+
         return user_object
