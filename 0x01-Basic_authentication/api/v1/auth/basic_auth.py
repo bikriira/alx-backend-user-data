@@ -107,7 +107,7 @@ class BasicAuth(Auth):
         """Retrieve the current user based on the request.
 
         Args:
-            request: The incoming request object (optional).
+            request: The incoming request object.
 
         Returns:
             User: The User object if credentials are valid, otherwise None.
@@ -119,5 +119,5 @@ class BasicAuth(Auth):
             parsed_credentials)
         user_credentials = self.extract_user_credentials(decoded_credentials)
         user_object = self.user_object_from_credentials(*user_credentials)
-
+        
         return user_object
