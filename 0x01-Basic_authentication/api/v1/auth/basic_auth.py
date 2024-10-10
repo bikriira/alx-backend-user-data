@@ -104,7 +104,7 @@ class BasicAuth(Auth):
         return user
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """Retrieve the current user based on the request's authorization header.
+        """Retrieve the current user based on the request.
 
         Args:
             request: The incoming request object (optional).
