@@ -2,7 +2,7 @@
 """Implementation of auth authentication system
 """
 from typing import List, TypeVar
-from flask import request
+import os
 
 
 class Auth:
@@ -59,3 +59,19 @@ class Auth:
             _type_: _description_
         """
         return None
+
+    def session_cookie(self, request=None):
+        """Return the session cookie value from the request.
+
+        Args:
+            request (optional): The request object containing cookies.
+                                Defaults to None.
+
+        Returns:
+            str: The session cookie value, or None if not found or
+                 request is None.
+        """
+        if not request:
+            return None
+
+        return request.cookies.get(os.getenv("SESSION_NAME"))
