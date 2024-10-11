@@ -1,3 +1,23 @@
+#!/usr/bin/env python3
+"""
+User login endpoint.
+
+This function handles user authentication. It accepts an email and 
+password, and if valid, creates a session and sets a session cookie.
+
+Endpoint:
+    POST /auth_session/login
+
+Returns:
+    JSON response with user info or error messages.
+
+Example:
+    {
+        "email": "user@example.com",
+        "password": "userpassword"
+    }
+"""
+
 from api.v1.views import app_views
 from flask import request, jsonify, make_response
 from models.user import User
