@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """module doc(to be updated)"""
 from .auth import Auth
 
