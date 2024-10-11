@@ -19,7 +19,7 @@ Example:
 """
 
 from api.v1.views import app_views
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, abort
 from models.user import User
 import os
 
@@ -62,3 +62,24 @@ def login():
     response = make_response(user.to_json())
     response.set_cookie(os.getenv("SESSION_NAME"), session_id)
     return response
+
+
+@app_views.route("/auth_session/logout", methods=["DELETE"],
+                 strict_slashes=False)
+def logout():
+    """Log out the current user by destroying their session.
+
+    This route deletes the user's session based on the session
+    cookie provided in the request. If the session is successfully
+    deleted, a success message is returned; otherwise, a 404 error
+    is raised.
+
+    Returns:
+        Response: JSON response with a message indicating the
+        logout status and an HTTP status code.
+    """
+    from api.v1.app import auth
+    session_deleted = auth.destroy_session(request)
+    if not session_deleted:
+        abort(404)
+    return jsonify({"message": "User logged out"}), 200
