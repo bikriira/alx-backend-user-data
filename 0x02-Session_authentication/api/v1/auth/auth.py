@@ -28,13 +28,11 @@ class Auth:
                 required_string = exc_path[:-1]
                 if path.startswith(required_string):
                     return False
-                else:
-                    return True
-            exc_path = exc_path.rstrip("/") + "/"
-            if path == exc_path:
-                return False
             else:
-                return True
+                exc_path = exc_path.rstrip("/") + "/"
+                if path == exc_path:
+                    return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """_summary_
