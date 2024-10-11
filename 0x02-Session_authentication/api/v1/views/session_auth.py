@@ -82,4 +82,4 @@ def logout():
     session_deleted = auth.destroy_session(request)
     if not session_deleted:
         abort(404)
-    return jsonify({"message": "User logged out"}), 200
+    return jsonify({}), 200
