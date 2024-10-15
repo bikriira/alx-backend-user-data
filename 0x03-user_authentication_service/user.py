@@ -12,9 +12,10 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class User(Base):
     """SQLAlchemy User model."""
-    
+
     __tablename__ = "users"
 
     id = Column(Integer(), primary_key=True)
